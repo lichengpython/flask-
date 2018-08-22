@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>作者-图书管理类</h1>
+<hr>
+<form method="post">
+    {#一定要记得补充csrf_token#}
+    {{ form.csrf_token() }}
+    {{ form.aut.label }}{{ form.aut }}<br>
+    {{ form.book.label }}{{ form.book }}<br>
+    {{ form.submit }}<br>
+
+</form>
+
+<hr>
+{#展示作者名称#}
+<ul>
+    {% for author in authors %}
+        <li>{{ author.name }} <a href="/removeaut/{{ author.id }}">删除</a>
+            {#展示书籍名称#}
+            <ul>
+                {% for book in author.books %}
+                    <li>{{ book.name }} <a href="/removebook/{{ book.id }}">删除</a></li>
+                {% endfor %}
+
+            </ul>
+
+        </li>
+    {% endfor %}
+</ul>
+
+<hr>
+{% for message in get_flashed_messages() %}
+    {{ message }}
+{% endfor %}
+
+
+</body>
+</html>
